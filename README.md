@@ -16,7 +16,7 @@ Start the watcher by running the `ps5_watcher` executable. This will query the s
 
 ## Supporting other stores
 
-I appreciate Pull Requests adding add other stores to [`stores.yml`](<(https://github.com/pgaspar/ps5_watcher/blob/main/stores.yml)>). Here's a quick description of the fields:
+I appreciate Pull Requests adding add other stores to [`stores.yml`](https://github.com/pgaspar/ps5_watcher/blob/main/stores.yml). Here's a quick description of the fields:
 
 - `id`: A unique string identifying this store. I'm currently using this format: `<store_name>_<country>_<digital or standard PS5 edition>`
 - `product_url`: The URL of the product listing you want the watcher to check
