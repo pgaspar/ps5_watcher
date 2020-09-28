@@ -1,0 +1,9 @@
+- id: fnac_pt_digital
+  product_url: https://www.fnac.pt/Consola-Sony-Playstation-5-Edicao-Digital-Consola-Consola/a8081173
+  selector: div.f-buyBox-availability
+  unavailable_text: Indisponível online
+
+- id: worten_pt_digital
+  product_url: https://www.worten.pt/gaming/playstation/consolas/ps5/pre-venda-consola-ps5-edicao-digital-825-gb-branco-7196054
+  selector: .w-product__availability-text
+  unavailable_text: De momento artigo indisponível

@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'ps5_watcher/store_repo'
+require 'set'
+require 'open-uri'
+require 'net/http'
+
+class Validator
+  class ValidationError < StandardError; end
+
+  REQUIRED_FIELDS = %w(
+    id product_url selector unavailable_text
+  ).freeze
+
+  def initialize(store_config_path)
+    @config = YAML.load_file(store_config_path)
+  end
+
+  def validate!
+    ensure_stores_have_all_fields
+    ensure_ids_are_unique
+    ensure_product_urls_are_reachable
+
+    puts "All good!"
+  end
+
+  private
+
+  attr_reader :config
+
+  def ensure_stores_have_all_fields
+    config.each_with_index do |store, i|
+      REQUIRED_FIELDS.each do |field|
+        if blank?(store[field])
+          msg = "\"#{field}\" can't be blank on store number #{i + 1}"
+          msg += " (#{store['id']})" if !blank?(store['id'])
+
+          raise ValidationError.new(msg)
+        end
+      end
+    end
+  end
+
+  def ensure_ids_are_unique
+    ids = config.map { |store| store['id'] }
+    set = Set.new
+    dups = ids.find_all { |id| !set.add?(id) }
+
+    if dups.any?
+      raise ValidationError.new("IDs are not unique: #{dups}")
+    end
+  end
+
+  def ensure_product_urls_are_reachable
+    config.each_with_index do |store, i|
+      begin
+        uri = URI.parse(store['product_url'])
+        Net::HTTP.get(uri)
+      rescue Errno::ECONNRESET, SocketError, ArgumentError
+        raise ValidationError.new("Product URL for #{store['id']} is unreachable: #{store['product_url']}")
+      end
+    end
+  end
+
+  def blank?(text)
+    text.to_s.strip.empty?
+  end
+end
+
+Validator.new(Ps5Watcher::StoreRepo::STORE_CONFIG_PATH).validate!

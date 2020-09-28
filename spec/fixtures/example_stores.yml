@@ -1,0 +1,9 @@
+- id: amazon
+  product_url: https://amazon.com/product-page
+  selector: .aSelector
+  unavailable_text: Unavailable
+
+- id: target
+  product_url: https://target.com/product-page
+  selector: .anotherSelector
+  unavailable_text: Sold out

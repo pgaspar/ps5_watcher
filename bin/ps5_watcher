@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'ps5_watcher'
+
+# TODO: enable store filtering from the shell
+
+interval = ARGV[0]&.to_i
+Ps5Watcher.watch(interval: interval)
