@@ -17,7 +17,7 @@ module Ps5Watcher
       loop do
         begin
           stores.each do |store|
-            notifier.notify("Hey! PS5 is available at #{store.main_url}", store.listing_url) if store.in_stock?
+            notifier.notify("Hey! PS5 is available at #{store.main_url}", store.product_url) if store.in_stock?
           end
           putc '.'
         rescue OpenURI::HTTPError, SocketError
