@@ -56,8 +56,10 @@ class Validator
     config.each_with_index do |store, i|
       begin
         uri = URI.parse(store['product_url'])
-        Net::HTTP.get(uri)
-      rescue Errno::ECONNRESET, SocketError, ArgumentError
+        Net::HTTP.start(uri.host, uri.port, read_timeout: 5, open_timeout: 5, use_ssl: uri.scheme == 'https') do |http|
+          http.head(uri)
+        end
+      rescue Errno::ECONNRESET, SocketError, ArgumentError, Net::ReadTimeout, Net::OpenTimeout
         raise ValidationError.new("Product URL for #{store['id']} is unreachable: #{store['product_url']}")
       end
     end
