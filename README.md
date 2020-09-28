@@ -1,7 +1,7 @@
 # Ps5Watcher
 
-[![Build Status](https://github.com/pgaspar/ps5_watcher/workflows/validate-stores/badge.svg)](https://github.com/pgaspar/ps5_watcher/actions)
-[![Build Status](https://github.com/pgaspar/ps5_watcher/workflows/ci/badge.svg)](https://github.com/pgaspar/ps5_watcher/actions)
+[![stores.yml Validation Status](https://github.com/pgaspar/ps5_watcher/workflows/Validate%20stores.yml/badge.svg)](https://github.com/pgaspar/ps5_watcher/actions)
+[![CI Status](https://github.com/pgaspar/ps5_watcher/workflows/CI/badge.svg)](https://github.com/pgaspar/ps5_watcher/actions)
 
 PS5 Watcher checks PlayStation 5 inventory in the stores defined in `stores.yml` and notifies you via [Pushover](https://pushover.net) if there are changes.
 
