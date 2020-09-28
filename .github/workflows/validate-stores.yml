@@ -1,0 +1,26 @@
+---
+name: Validate stores.yml
+on:
+  push:
+    paths:
+      - '.github/workflows/validate-stores.yml'
+      - 'bin/validator'
+      - 'stores.yml'
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+      - name: Install latest bundler
+        run: |
+          gem install bundler --no-document
+          bundle config set without 'tools benchmarks docs'
+      - name: Install dependencies
+        run: bin/setup
+      - name: Run stores.yml validator
+        run: bin/validator
