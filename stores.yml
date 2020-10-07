@@ -11,7 +11,7 @@
 - id: megamania_pt_digital
   product_url: https://www.mega-mania.com.pt/pt/produto/5899-consola-ps-gb-edio-digital
   selector: .produto_lista_stock_esgotado
-  unavailable_text: Esgotado
+  unavailable_text: Pré-encomenda
 
 - id: auchan_pt_digital
   product_url: https://www.auchan.pt/Frontoffice/gaming/pre-vendas/pre-vendas_ps5/consola_playstation5sonyedicao_digital/3239859/Auchan_Tecnologico
