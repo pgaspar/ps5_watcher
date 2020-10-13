@@ -1,16 +1,14 @@
 RSpec.describe Ps5Watcher::StoreRepo do
-  subject { Ps5Watcher::StoreRepo.new(STORES_CONFIG_PATH) }
+  subject(:repo) { described_class.new(STORES_CONFIG_PATH) }
 
   describe '#stores' do
     it 'successfully loads the store configuration fixtures' do
-      stores = subject.stores
+      stores = repo.stores
 
       expect(stores.size).to eq 2
-      expect(stores.map(&:id)).to match_array(['amazon', 'target'])
+      expect(stores.map(&:id)).to match_array(%w[amazon target])
 
-      stores.each do |store|
-        expect(store).to be_a(Ps5Watcher::Store)
-      end
+      expect(stores).to all(be_a(Ps5Watcher::Store))
 
       amazon = stores.find { |store| store.id == 'amazon' }
       expect(amazon.product_url).to eq 'https://amazon.com/product-page'

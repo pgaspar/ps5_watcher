@@ -12,5 +12,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  STORES_CONFIG_PATH = "#{File.dirname(__FILE__)}/fixtures/example_stores.yml"
+  STORES_CONFIG_PATH = "#{File.dirname(__FILE__)}/fixtures/example_stores.yml".freeze
 end

@@ -9,9 +9,9 @@ require 'net/http'
 class Validator
   class ValidationError < StandardError; end
 
-  REQUIRED_FIELDS = %w(
+  REQUIRED_FIELDS = %w[
     id product_url selector unavailable_text
-  ).freeze
+  ].freeze
 
   def initialize(store_config_path)
     @config = YAML.load_file(store_config_path)
@@ -22,7 +22,7 @@ class Validator
     ensure_ids_are_unique
     ensure_product_urls_are_reachable
 
-    puts "All good!"
+    puts 'All good!'
   end
 
   private
@@ -32,12 +32,12 @@ class Validator
   def ensure_stores_have_all_fields
     config.each_with_index do |store, i|
       REQUIRED_FIELDS.each do |field|
-        if blank?(store[field])
-          msg = "\"#{field}\" can't be blank on store number #{i + 1}"
-          msg += " (#{store['id']})" if !blank?(store['id'])
+        next unless blank?(store[field])
 
-          raise ValidationError.new(msg)
-        end
+        msg = "\"#{field}\" can't be blank on store number #{i + 1}"
+        msg += " (#{store['id']})" unless blank?(store['id'])
+
+        raise ValidationError.new(msg)
       end
     end
   end
@@ -47,13 +47,11 @@ class Validator
     set = Set.new
     dups = ids.find_all { |id| !set.add?(id) }
 
-    if dups.any?
-      raise ValidationError.new("IDs are not unique: #{dups}")
-    end
+    raise ValidationError.new("IDs are not unique: #{dups}") if dups.any?
   end
 
   def ensure_product_urls_are_reachable
-    config.each_with_index do |store, i|
+    config.each do |store|
       begin
         uri = URI.parse(store['product_url'])
         Net::HTTP.start(uri.host, uri.port, read_timeout: 5, open_timeout: 5, use_ssl: uri.scheme == 'https') do |http|

@@ -8,14 +8,17 @@ module Ps5Watcher
     end
 
     def can_find_text?(text)
-      selected_node = html.css(selector).first
-      selected_node && selected_node.text.include?(text)
+      selected_node&.text&.include?(text)
     end
 
     private
 
     def html
       Nokogiri::HTML open(url)
+    end
+
+    def selected_node
+      html.css(selector).first
     end
   end
 end

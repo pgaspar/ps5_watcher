@@ -1,7 +1,7 @@
 module Ps5Watcher
   class Notifier
-    USER_KEY = ENV['PUSHOVER_USER_KEY'].freeze
-    APP_TOKEN = ENV['PUSHOVER_APP_TOKEN'].freeze
+    USER_KEY = ENV['PUSHOVER_USER_KEY']
+    APP_TOKEN = ENV['PUSHOVER_APP_TOKEN']
     SEND_MESSAGE_ENDPOINT = 'https://api.pushover.net/1/messages.json'.freeze
 
     def initialize
