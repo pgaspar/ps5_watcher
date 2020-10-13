@@ -1,6 +1,6 @@
 module Ps5Watcher
   class Watcher
-    attr_accessor :notifier, :stores
+    attr_reader :notifier, :stores
 
     def initialize(store_ids: [], interval: 300, store_repo: Ps5Watcher::StoreRepo.new, notifier: Ps5Watcher::Notifier.new)
       @stores = store_repo.stores
